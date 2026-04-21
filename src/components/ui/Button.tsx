@@ -1,11 +1,21 @@
-import { type ButtonHTMLAttributes, type ReactNode } from 'react';
+import {
+  type ButtonHTMLAttributes,
+  type AnchorHTMLAttributes,
+  type ReactNode,
+} from 'react';
 
 type Variant = 'primary' | 'ghost';
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+type BaseProps = {
   variant?: Variant;
   children: ReactNode;
-}
+  className?: string;
+};
+
+type AsButton = BaseProps & ButtonHTMLAttributes<HTMLButtonElement> & { href?: never };
+type AsAnchor = BaseProps & AnchorHTMLAttributes<HTMLAnchorElement> & { href: string };
+
+type ButtonProps = AsButton | AsAnchor;
 
 const variants: Record<Variant, string> = {
   primary: [
@@ -19,19 +29,23 @@ const variants: Record<Variant, string> = {
   ].join(' '),
 };
 
+const BASE =
+  'inline-flex items-center justify-center gap-2.5 px-[22px] py-[8px] rounded-lg text-sm font-medium tracking-[-0.01em] transition-all duration-200 whitespace-nowrap cursor-pointer';
+
 export function Button({ variant = 'primary', className = '', children, ...props }: ButtonProps) {
+  const cls = [BASE, variants[variant], className].join(' ');
+
+  if ('href' in props && props.href !== undefined) {
+    const { href, ...rest } = props as AsAnchor;
+    return (
+      <a href={href} className={cls} {...rest}>
+        {children}
+      </a>
+    );
+  }
+
   return (
-    <button
-      className={[
-        'inline-flex items-center justify-center gap-2.5',
-        'px-[11px] py-[9px] rounded-lg',
-        'text-sm font-medium tracking-[-0.01em]',
-        'transition-all duration-200 whitespace-nowrap cursor-pointer',
-        variants[variant],
-        className,
-      ].join(' ')}
-      {...props}
-    >
+    <button className={cls} {...(props as AsButton)}>
       {children}
     </button>
   );
