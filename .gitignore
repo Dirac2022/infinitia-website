@@ -22,3 +22,5 @@ Thumbs.db
 # Local env
 .env.local
 .env.*.local
+
+infinit-ia.html
