@@ -1,5 +1,5 @@
 /* ============================================================
-   AWS Cost Estimator — Colors & Typography
+   Infinitia — Design Tokens
    Dark-first, Linear/Vercel/Raycast-inspired.
    ============================================================ */
 
@@ -123,12 +123,8 @@
   --dur-base:    200ms;
   --dur-slow:    300ms;
 
-  /* Fixed layout widths */
-  --sidebar-w:      240px;
-  --sidebar-w-collapsed: 56px;
-  --cost-panel-w:   280px;
-  --toolbar-h:      48px;
 }
+
 
 /* ─── Semantic element defaults (drop-in hi-fi type) ───── */
 .ds-h1 {
