@@ -1,9 +1,57 @@
-// Infinitia — Team, Clients, FAQ, Contact, Footer
+// Infinitia — Leadership, Team, Cases, FAQ, Footer
 const { useState: useState2 } = React;
 
+/** Derive initials from a full name */
+function initials(name) {
+  return name.split(' ').filter(Boolean).slice(0,2).map(w => w[0].toUpperCase()).join('');
+}
+
+/* ─── LEADERSHIP ────────────────────────────────────────────
+   Owners / founders — shown BEFORE the team grid
+─────────────────────────────────────────────────────────── */
+window.Leadership = function Leadership({ t }) {
+  return (
+    <section className="section leadership-section" id="leadership" style={{ paddingTop: 60 }}>
+      <div className="container">
+        <div className="section-head reveal">
+          <div>
+            <div className="section-eyebrow">{t.leadership.eyebrow}</div>
+            <h2 className="section-title">
+              {t.leadership.title_a} <em>{t.leadership.title_b}</em>
+            </h2>
+          </div>
+          <p className="section-lede">{t.leadership.lede}</p>
+        </div>
+        <div className="leaders-grid reveal">
+          {t.leadership.members.map((m, i) => (
+            <div
+              className={`leader-card ${i % 2 === 1 ? 'leader-card--alt' : ''}`}
+              key={i}
+              style={{ "--lc1": m.c1, "--lc2": m.c2 }}
+            >
+              <div className="leader-card-glow" />
+              <div className="leader-card-header">
+                <div className="leader-avatar">{m.initials}</div>
+                <div>
+                  <div className="leader-role">{m.role}</div>
+                  <div className="leader-name">{m.name}</div>
+                </div>
+              </div>
+              <p className="leader-bio">{m.bio}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+/* ─── TEAM ──────────────────────────────────────────────────
+   Full engineering team — shown AFTER leadership
+─────────────────────────────────────────────────────────── */
 window.Team = function Team({ t }) {
   return (
-    <section className="section" id="team" style={{ paddingTop: 60 }}>
+    <section className="section team-section" id="team" style={{ paddingTop: 48 }}>
       <div className="container">
         <div className="section-head reveal">
           <div>
@@ -31,26 +79,68 @@ window.Team = function Team({ t }) {
   );
 };
 
-window.Clients = function Clients({ t }) {
+/* ─── CASES — "Trabajamos con los grandes" ──────────────────
+   Replaces the old Clients grid
+─────────────────────────────────────────────────────────── */
+window.Cases = function Cases({ t }) {
+  const c = t.cases;
   return (
-    <section className="clients reveal" aria-label="Clients">
+    <section className="section cases-section" id="cases" style={{ paddingTop: 60 }}>
       <div className="container">
-        <div className="clients-title">{t.clients.title}</div>
-        <div className="clients-grid">
-          {window.CLIENTS.map((c, i) => (
-            <div className="client" key={i}>
-              <div className="client-logo">
-                <span style={{ fontSize: 20, color: "var(--accent-primary)" }}>{c.glyph}</span>
-                <span>{c.name}</span>
-              </div>
+        <div className="section-head reveal">
+          <div>
+            <div className="section-eyebrow">{c.eyebrow}</div>
+            <h2 className="section-title">
+              {c.title_a} <em>{c.title_b}</em>
+            </h2>
+          </div>
+        </div>
+
+        <div className="case-grid reveal">
+          {/* Left — text */}
+          <div className="case-left">
+            <div className="case-label">
+              <span className="case-label-dot" />
+              {c.label}
             </div>
-          ))}
+            <h3 className="case-client-name">{c.client_name}</h3>
+            <p className="case-client-desc">{c.client_desc}</p>
+            <div className="case-tags">
+              {c.client_tags.map((tag, i) => (
+                <span className="case-tag" key={i}>{tag}</span>
+              ))}
+            </div>
+          </div>
+
+          {/* Right — visual card */}
+          <div className="case-visual">
+            <div className="case-visual-corner">
+              <span className="case-visual-dot" />
+              {c.client_status}
+            </div>
+            <div className="case-visual-center">
+              <div className="case-visual-name">
+                {c.client_name.slice(0, 3)}<em>{c.client_name.slice(3)}</em>
+              </div>
+              <div className="case-visual-period">{c.client_period}</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Trust bar below */}
+        <div className="cases-trust reveal">
+          <span className="cases-trust-label">Clientes que confían en nuestra ingeniería</span>
+          <span className="cases-trust-clients">
+            <strong>AJEMEX</strong>
+            <span className="cases-trust-more">{c.more_label} →</span>
+          </span>
         </div>
       </div>
     </section>
   );
 };
 
+/* ─── FAQ ───────────────────────────────────────────────── */
 window.FAQ = function FAQ({ t }) {
   const [open, setOpen] = useState2(0);
   return (
@@ -80,99 +170,7 @@ window.FAQ = function FAQ({ t }) {
   );
 };
 
-window.Contact = function Contact({ t }) {
-  const [form, setForm] = useState2({ name: "", email: "", company: "", role: "", interest: t.contact.form.interests[0], message: "" });
-  const [sent, setSent] = useState2(false);
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    setSent(true);
-  };
-
-  return (
-    <section className="section" id="contact" style={{ paddingTop: 60 }}>
-      <div className="container">
-        <div className="contact-wrap">
-          <div className="contact-left reveal">
-            <div className="section-eyebrow">{t.contact.eyebrow}</div>
-            <h2 className="title">
-              {t.contact.title_a} <em>{t.contact.title_accent}</em> {t.contact.title_b}
-            </h2>
-            <p className="sub">{t.contact.sub}</p>
-            <div className="contact-details">
-              {t.contact.details.map((d, i) => (
-                <div className="contact-detail" key={i}>
-                  <span className="k">{d.k}</span>
-                  <span className="v">{d.v}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <form className="form reveal" onSubmit={onSubmit}>
-            {!sent ? (
-              <>
-                <div className="form-title">{t.contact.form.title}</div>
-                <div className="form-sub">{t.contact.form.sub}</div>
-
-                <div className="field-row">
-                  <div className="field">
-                    <label>{t.contact.form.name}</label>
-                    <input required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder={t.contact.form.name_ph} />
-                  </div>
-                  <div className="field">
-                    <label>{t.contact.form.email}</label>
-                    <input type="email" required value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} placeholder={t.contact.form.email_ph} />
-                  </div>
-                </div>
-
-                <div className="field-row">
-                  <div className="field">
-                    <label>{t.contact.form.company}</label>
-                    <input value={form.company} onChange={(e) => setForm({ ...form, company: e.target.value })} placeholder={t.contact.form.company_ph} />
-                  </div>
-                  <div className="field">
-                    <label>{t.contact.form.role}</label>
-                    <input value={form.role} onChange={(e) => setForm({ ...form, role: e.target.value })} placeholder={t.contact.form.role_ph} />
-                  </div>
-                </div>
-
-                <div className="field">
-                  <label>{t.contact.form.interest}</label>
-                  <div className="chip-row">
-                    {t.contact.form.interests.map((it) => (
-                      <button type="button" key={it}
-                        className={`chip ${form.interest === it ? "active" : ""}`}
-                        onClick={() => setForm({ ...form, interest: it })}>
-                        {it}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="field">
-                  <label>{t.contact.form.message}</label>
-                  <textarea value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} placeholder={t.contact.form.message_ph} rows={3} />
-                </div>
-
-                <button type="submit" className="form-submit">
-                  {t.contact.form.submit} <Icons.Arrow width={14} height={14} />
-                </button>
-              </>
-            ) : (
-              <div className="form-success">
-                <div className="form-success-mark"><Icons.Check width={22} height={22} strokeWidth={2.2} /></div>
-                <h4>{t.contact.form.success_title}</h4>
-                <p>{t.contact.form.success_sub}</p>
-              </div>
-            )}
-          </form>
-        </div>
-      </div>
-    </section>
-  );
-};
-
+/* ─── FOOTER ─────────────────────────────────────────────── */
 window.Footer = function Footer({ t }) {
   return (
     <footer className="footer">
@@ -210,4 +208,10 @@ window.Footer = function Footer({ t }) {
   );
 };
 
-Object.assign(window, { Team: window.Team, Clients: window.Clients, FAQ: window.FAQ, Contact: window.Contact, Footer: window.Footer });
+Object.assign(window, {
+  Leadership: window.Leadership,
+  Team: window.Team,
+  Cases: window.Cases,
+  FAQ: window.FAQ,
+  Footer: window.Footer,
+});
