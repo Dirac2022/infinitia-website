@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Infinitia — Software para cada plataforma (PDF)</title>
+  <link rel="stylesheet" href="styles/site.css" />
+
+  <style>
+    /* ───── Print-ready overrides ───── */
+    html, body {
+      background: #0A0A0F !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+      color-adjust: exact !important;
+    }
+
+    /* Force all reveal animations to their final state */
+    .reveal { opacity: 1 !important; transform: none !important; }
+
+    /* Make nav static rather than fixed so it doesn't overlap content on each page */
+    .nav {
+      position: static !important;
+      background: rgba(10, 10, 15, 0.75) !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      border-bottom: 1px solid #2A2A3A !important;
+      padding: 16px 0 !important;
+    }
+
+    /* Remove the extra top padding the hero had (it existed to clear the fixed nav) */
+    .hero { padding-top: 80px !important; padding-bottom: 80px !important; }
+
+    /* Tighten sections so PDF isn't gigantic */
+    .section { padding: 80px 0 !important; }
+
+    /* Disable hovers that won't fire in print anyway */
+    * { transition: none !important; animation: none !important; }
+
+    /* Page break hints so whole sections try to stay together */
+    section, .section, .hero, .stats, .clients, .footer {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    /* Avoid breaking cards across pages */
+    .service, .process-step, .member, .faq-item, .stat, .client, .form {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    /* Hide language toggle + interactive-only chrome */
+    .lang-toggle { display: none !important; }
+
+    @media print {
+      @page {
+        size: 1440px 1000px;
+        margin: 0;
+      }
+      html, body {
+        width: 1440px;
+        background: #0A0A0F !important;
+      }
+      .nav { padding: 12px 0 !important; }
+      .hero { padding-top: 60px !important; padding-bottom: 60px !important; }
+      .section { padding: 60px 0 !important; }
+
+      /* Section boundaries become page starts — gives a clean chaptered PDF */
+      #services, #process, #team, #faq, #contact, .stats, .clients, .footer {
+        break-before: page;
+        page-break-before: always;
+      }
+
+      /* Keep headings with their content */
+      .section-head { break-after: avoid; page-break-after: avoid; }
+      h1, h2, h3, h4 { break-after: avoid; page-break-after: avoid; }
+    }
+  </style>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="src/content.js"></script>
+  <script src="src/icons.js"></script>
+  <script type="text/babel" src="src/sections-a.jsx"></script>
+  <script type="text/babel" src="src/sections-b.jsx"></script>
+
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    function App() {
+      // PDF snapshot is always in Spanish (the primary language)
+      const lang = "es";
+      const t = window.CONTENT[lang];
+
+      // Force all reveals to appear immediately
+      useEffect(() => {
+        document.querySelectorAll(".reveal").forEach(el => el.classList.add("in"));
+      }, []);
+
+      return (
+        <>
+          <Nav lang={lang} setLang={() => {}} t={t} />
+          <main>
+            <Hero t={t} />
+            <Services t={t} />
+            <Process t={t} />
+            <Stats t={t} />
+            <Team t={t} />
+            <Clients t={t} />
+            <FAQ t={t} />
+            <Contact t={t} />
+          </main>
+          <Footer t={t} />
+        </>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+
+    // Auto-open print dialog once everything has settled
+    (async () => {
+      try { if (document.fonts && document.fonts.ready) await document.fonts.ready; } catch (e) {}
+      // Wait for React render + a settle frame
+      await new Promise(r => setTimeout(r, 800));
+      // Open all FAQ items so answers are visible in PDF
+      document.querySelectorAll(".faq-item").forEach(el => el.classList.add("open"));
+      // Ensure every reveal is visible
+      document.querySelectorAll(".reveal").forEach(el => el.classList.add("in"));
+      await new Promise(r => setTimeout(r, 300));
+      window.print();
+    })();
+  </script>
+</body>
+</html>
