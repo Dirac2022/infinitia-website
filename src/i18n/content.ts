@@ -14,6 +14,14 @@ export interface TermLine {
   html: string;
 }
 
+export interface LeaderMember {
+  role: string;
+  name: string;
+  bio: string;
+  c1: string;
+  c2: string;
+}
+
 export interface Content {
   nav: {
     services: string;
@@ -40,6 +48,13 @@ export interface Content {
     titleB: string;
     lede: string;
     items: ServiceItem[];
+  };
+  leadership: {
+    eyebrow: string;
+    titleA: string;
+    titleB: string;
+    lede: string;
+    members: LeaderMember[];
   };
 }
 
@@ -94,6 +109,28 @@ export const content: Record<Lang, Content> = {
         { title: 'Consultoría técnica',   desc: 'Auditamos código, definimos arquitectura y acompañamos a equipos existentes en decisiones críticas de negocio.',                     tags: ['Arquitectura', 'Auditoría', 'Roadmaps'],            color: '#A78BFA', iconKey: 'Compass' },
       ],
     },
+    leadership: {
+      eyebrow: 'Liderazgo',
+      titleA: 'Dirección con',
+      titleB: 'visión clara.',
+      lede: 'Fundadores e ingenieros de primera línea. El liderazgo que convierte tecnología en resultados de negocio.',
+      members: [
+        {
+          role: 'Fundador & CEO',
+          name: 'Gino Janampa Añaños',
+          bio: 'Visionario detrás de Infinitia. Define la dirección estratégica con la convicción de que la tecnología debe estar al servicio del crecimiento real de las empresas. Más de 10 años construyendo productos digitales en LATAM.',
+          c1: '#6C63FF',
+          c2: '#00D4FF',
+        },
+        {
+          role: 'Gerente General',
+          name: 'Emir Janampa Añaños',
+          bio: 'Lidera la operación y ejecución. Convierte la visión en resultados concretos coordinando los equipos de desarrollo, infraestructura y consultoría para entregar proyectos con impacto medible.',
+          c1: '#00D4FF',
+          c2: '#00E5A0',
+        },
+      ],
+    },
   },
 
   en: {
@@ -144,6 +181,28 @@ export const content: Record<Lang, Content> = {
         { title: 'Custom software',      desc: 'Internal systems, operational dashboards, back-office tools — built around your actual workflow.',                                     tags: ['Backend', 'APIs', 'Dashboards', 'ETL'],             color: '#F472B6', iconKey: 'Code'    },
         { title: 'DevOps & infra',       desc: 'CI/CD, IaC with Terraform, observability and cost control on AWS, GCP and Cloudflare.',                                               tags: ['Terraform', 'Docker', 'K8s', 'GitHub Actions'],     color: '#FFB800', iconKey: 'Server'  },
         { title: 'Technical consulting', desc: 'We audit code, define architecture and support existing teams through critical business decisions.',                                   tags: ['Architecture', 'Audits', 'Roadmaps'],               color: '#A78BFA', iconKey: 'Compass' },
+      ],
+    },
+    leadership: {
+      eyebrow: 'Leadership',
+      titleA: 'Direction with',
+      titleB: 'a clear vision.',
+      lede: 'Founders and frontline engineers. The team that turns technology into measurable business outcomes.',
+      members: [
+        {
+          role: 'Founder & CEO',
+          name: 'Gino Janampa Añaños',
+          bio: 'The visionary behind Infinitia. Sets the strategic direction with the conviction that technology must serve real business growth. Over 10 years building digital products across LATAM.',
+          c1: '#6C63FF',
+          c2: '#00D4FF',
+        },
+        {
+          role: 'Managing Director',
+          name: 'Emir Janampa Añaños',
+          bio: 'Leads operations and execution. Turns vision into concrete results by coordinating engineering, infrastructure and consulting teams to deliver projects with measurable impact.',
+          c1: '#00D4FF',
+          c2: '#00E5A0',
+        },
       ],
     },
   },
