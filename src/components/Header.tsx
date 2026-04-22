@@ -64,7 +64,11 @@ function LangToggle() {
   );
 }
 
-export function Header() {
+interface HeaderProps {
+  onOpenContact: () => void;
+}
+
+export function Header({ onOpenContact }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
   const { lang } = useLang();
   const t = content[lang];
@@ -108,8 +112,8 @@ export function Header() {
           <LangToggle />
           <Button
             variant="primary"
-            href={content[lang].hero.ctaHref}
             className="py-2.5 px-4 text-[13px]"
+            onClick={onOpenContact}
           >
             {t.nav.cta}
           </Button>

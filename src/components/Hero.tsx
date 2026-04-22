@@ -3,7 +3,11 @@ import { Terminal } from './Terminal';
 import { useLang } from '../context/LangContext';
 import { content } from '../i18n/content';
 
-export function Hero() {
+interface HeroProps {
+  onOpenContact: () => void;
+}
+
+export function Hero({ onOpenContact }: HeroProps) {
   const { lang } = useLang();
   const t = content[lang].hero;
 
@@ -32,7 +36,7 @@ export function Hero() {
             </p>
 
             <div className="flex gap-3 flex-wrap mb-16">
-              <Button variant="primary" href={t.ctaHref}>
+              <Button variant="primary" onClick={onOpenContact}>
                 {t.ctaPrimary}
               </Button>
               <Button

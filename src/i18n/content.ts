@@ -34,6 +34,17 @@ export interface Content {
     ctaHref: string;
   };
   terminal: TermLine[];
+  contact: {
+    title: string;
+    subtitle: string;
+    name: string;
+    namePlaceholder: string;
+    email: string;
+    emailPlaceholder: string;
+    message: string;
+    messagePlaceholder: string;
+    submit: string;
+  };
   services: {
     eyebrow: string;
     titleA: string;
@@ -80,6 +91,17 @@ export const content: Record<Lang, Content> = {
       { t: 400, html: '<span class="term-out"><span class="term-ok">●</span> Listo para escalar.</span>' },
       { t: 500, html: '<span class="term-prompt">$</span> <span class="term-cursor-el"></span>' },
     ],
+    contact: {
+      title: 'Agendar reunión',
+      subtitle: 'Contanos sobre tu proyecto y te respondemos en menos de 24 hs.',
+      name: 'Nombre',
+      namePlaceholder: 'Tu nombre completo',
+      email: 'Email',
+      emailPlaceholder: 'tu@empresa.com',
+      message: 'Mensaje',
+      messagePlaceholder: '¿En qué podemos ayudarte?',
+      submit: 'Enviar mensaje',
+    },
     services: {
       eyebrow: 'Servicios',
       titleA: 'Todo el stack tecnológico,',
@@ -132,6 +154,17 @@ export const content: Record<Lang, Content> = {
       { t: 400, html: '<span class="term-out"><span class="term-ok">●</span> Ready to scale.</span>' },
       { t: 500, html: '<span class="term-prompt">$</span> <span class="term-cursor-el"></span>' },
     ],
+    contact: {
+      title: 'Book a meeting',
+      subtitle: 'Tell us about your project and we\'ll get back to you within 24 hours.',
+      name: 'Name',
+      namePlaceholder: 'Your full name',
+      email: 'Email',
+      emailPlaceholder: 'you@company.com',
+      message: 'Message',
+      messagePlaceholder: 'How can we help you?',
+      submit: 'Send message',
+    },
     services: {
       eyebrow: 'Services',
       titleA: 'The full technology stack,',
