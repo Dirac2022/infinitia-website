@@ -184,7 +184,7 @@ export const content: Record<Lang, Content> = {
       eyebrow: 'Leadership',
       titleA: 'Direction with',
       titleB: 'a clear vision.',
-      lede: 'Founders and frontline engineers. The team that turns technology into measurable business outcomes.',
+      lede: 'Top-level professionals. The team that turns technology into measurable business outcomes.',
       members: [
         {
           role: 'Founder & CEO',
