@@ -25,8 +25,7 @@ export interface LeaderMember {
 export interface Content {
   nav: {
     services: string;
-    process: string;
-    team: string;
+    leadership: string;
     faq: string;
     contact: string;
     cta: string;
@@ -62,8 +61,7 @@ export const content: Record<Lang, Content> = {
   es: {
     nav: {
       services: 'Servicios',
-      process: 'Proceso',
-      team: 'Equipo',
+      leadership: 'Leadership',
       faq: 'FAQ',
       contact: 'Contacto',
       cta: 'Agendar reunión',
@@ -136,8 +134,7 @@ export const content: Record<Lang, Content> = {
   en: {
     nav: {
       services: 'Services',
-      process: 'Process',
-      team: 'Team',
+      leadership: 'Leadership',
       faq: 'FAQ',
       contact: 'Contact',
       cta: 'Book a meeting',

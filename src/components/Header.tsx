@@ -5,10 +5,9 @@ import { content, type Lang } from '../i18n/content';
 
 const NAV_HREFS: { key: keyof typeof content.es.nav; href: string }[] = [
   { key: 'services', href: '#services' },
-  { key: 'process',  href: '#process'  },
-  { key: 'team',     href: '#team'     },
-  { key: 'faq',      href: '#faq'      },
-  { key: 'contact',  href: '#contact'  },
+  { key: 'leadership', href: '#leadership' },
+  { key: 'faq', href: '#faq' },
+  { key: 'contact', href: '#contact' },
 ];
 
 function Logo() {
