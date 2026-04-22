@@ -1,4 +1,5 @@
 import { type ReactNode } from 'react';
+import { type IconKey } from '../i18n/content';
 
 export interface ServiceCardProps {
   index: number;
@@ -7,6 +8,7 @@ export interface ServiceCardProps {
   tags: string[];
   color: string;
   icon: ReactNode;
+  iconKey: IconKey;
 }
 
 export interface Props {

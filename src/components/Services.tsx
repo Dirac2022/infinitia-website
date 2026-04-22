@@ -40,6 +40,7 @@ export function Services() {
               tags={service.tags}
               color={service.color}
               icon={ICON_MAP[service.iconKey]}
+              iconKey={service.iconKey}
             />
           ))}
         </div>
