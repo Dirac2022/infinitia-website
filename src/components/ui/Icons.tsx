@@ -46,7 +46,6 @@ export const CodeIcon = icon(
   <>
     <path className="code-bracket-l" d="m8 6-6 6 6 6" />
     <path className="code-bracket-r" d="M16 6l6 6-6 6" />
-    <path className="code-slash" d="M14 4l-4 16" />
   </>,
 );
 
