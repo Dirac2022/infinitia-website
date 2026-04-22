@@ -134,11 +134,8 @@ export function Header({ onOpenContact }: HeaderProps) {
           <LangToggle />
           <Button
             variant="primary"
-<<<<<<< HEAD
             className="hidden md:flex py-2.5 px-4 text-[13px]"
-=======
-            className="py-2.5 px-4 text-[13px]"
->>>>>>> 10db8ac (ADD: send emails)
+            // className="py-2.5 px-4 text-[13px]"
             onClick={onOpenContact}
           >
             {t.nav.cta}
