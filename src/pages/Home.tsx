@@ -24,6 +24,7 @@ export function Home() {
         <FAQ />
       </main>
       <Footer />
+    </main >
       <ContactModal open={contactOpen} onClose={closeContact} />
     </>
   );

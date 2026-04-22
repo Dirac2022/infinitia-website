@@ -35,7 +35,11 @@ export function Hero({ onOpenContact }: HeroProps) {
               {t.sub}
             </p>
 
+<<<<<<< HEAD
             <div className="flex flex-col sm:flex-row gap-3 flex-wrap mb-10 lg:mb-16">
+=======
+            <div className="flex gap-3 flex-wrap mb-16">
+>>>>>>> 10db8ac (ADD: send emails)
               <Button variant="primary" onClick={onOpenContact}>
                 {t.ctaPrimary}
               </Button>

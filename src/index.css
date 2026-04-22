@@ -838,3 +838,22 @@
   .contact-input::placeholder { color: #3A3A55; }
   .contact-input:focus { border-color: #6C63FF; }
 }
+
+@layer components {
+  /* ── Contact modal inputs ──────────────────────────────────── */
+  .contact-input {
+    width: 100%;
+    background: rgba(10, 10, 15, 0.6);
+    border: 1px solid #2A2A3A;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 14px;
+    color: #F0F0FF;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 200ms cubic-bezier(0.22, 1, 0.36, 1);
+    resize: none;
+  }
+  .contact-input::placeholder { color: #3A3A55; }
+  .contact-input:focus { border-color: #6C63FF; }
+}
