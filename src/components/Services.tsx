@@ -24,6 +24,7 @@ export function Services() {
   const [paused, setPaused] = useState(false);
   const [tick, setTick] = useState(0);
   const timerRef = useRef<number | null>(null);
+  const touchStartX = useRef<number | null>(null);
 
   useEffect(() => {
     if (paused) return;
@@ -43,6 +44,19 @@ export function Services() {
     setActive(idx);
     setTick((t) => t + 1);
   }, []);
+
+  const onTouchStart = useCallback((e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    setPaused(true);
+  }, []);
+
+  const onTouchEnd = useCallback((e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const dx = e.changedTouches[0].clientX - touchStartX.current;
+    if (Math.abs(dx) > 40) advance(dx < 0 ? 1 : -1);
+    touchStartX.current = null;
+    setPaused(false);
+  }, [advance]);
 
   const onSideKey = (idx: number) => (e: KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Enter' || e.key === ' ') {
@@ -89,7 +103,11 @@ export function Services() {
             </svg>
           </button>
 
-          <div className="carousel-stage">
+          <div
+            className="carousel-stage"
+            onTouchStart={onTouchStart}
+            onTouchEnd={onTouchEnd}
+          >
             {items.map((item, i) => {
               let d = ((i - active) % n + n) % n;
               if (d > n / 2) d -= n;
