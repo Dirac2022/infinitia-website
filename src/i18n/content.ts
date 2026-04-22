@@ -72,7 +72,7 @@ export const content: Record<Lang, Content> = {
   es: {
     nav: {
       services: 'Servicios',
-      leadership: 'Leadership',
+      leadership: 'Liderazgo',
       faq: 'FAQ',
       contact: 'Contacto',
       cta: 'Agendar reunión',
