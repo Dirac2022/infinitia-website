@@ -198,17 +198,6 @@
     pointer-events: none;
   }
 
-  .hero-glow {
-    position: absolute;
-    top: -10%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 900px;
-    height: 600px;
-    background: radial-gradient(ellipse at center, rgba(108, 99, 255, 0.18), transparent 60%);
-    pointer-events: none;
-  }
-
   .hero-tag {
     display: inline-flex;
     align-items: center;

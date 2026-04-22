@@ -4,6 +4,7 @@ import 'lenis/dist/lenis.css';
 
 import { LangProvider } from './context/LangContext';
 import { Home } from './pages/Home';
+import { CursorGlow } from './components/CursorGlow';
 
 function App() {
   useEffect(() => {
@@ -19,6 +20,7 @@ function App() {
 
   return (
     <LangProvider>
+      <CursorGlow />
       <Home />
     </LangProvider>
   );

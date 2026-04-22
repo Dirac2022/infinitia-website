@@ -5,34 +5,7 @@ import { content, type Lang } from '../i18n/content';
 
 import { NAV_HREFS } from '../constants';
 
-function Logo() {
-  return (
-    <svg viewBox="0 0 32 32" fill="none" width={24} height={24} aria-hidden="true">
-      <path
-        d="M6 16c0-3.3 2.7-6 6-6s6 2.7 6 6-2.7 6-6 6-6-2.7-6-6Zm14 0c0-3.3 2.7-6 6-6"
-        stroke="url(#logo-g1)"
-        strokeWidth={2.4}
-        strokeLinecap="round"
-      />
-      <path
-        d="M20 16c0 3.3 2.7 6 6 6"
-        stroke="url(#logo-g2)"
-        strokeWidth={2.4}
-        strokeLinecap="round"
-      />
-      <defs>
-        <linearGradient id="logo-g1" x1="6" y1="10" x2="26" y2="22" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#6C63FF" />
-          <stop offset="1" stopColor="#00D4FF" />
-        </linearGradient>
-        <linearGradient id="logo-g2" x1="20" y1="16" x2="26" y2="22" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#00D4FF" />
-          <stop offset="1" stopColor="#00E5A0" />
-        </linearGradient>
-      </defs>
-    </svg>
-  );
-}
+import { Logo } from './Logo';
 
 function LangToggle() {
   const { lang, setLang } = useLang();

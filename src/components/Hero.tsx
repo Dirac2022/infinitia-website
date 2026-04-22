@@ -67,7 +67,6 @@ export function Hero({ onOpenContact }: HeroProps) {
   return (
     <section className="hero-section" id="top">
       <div className="hero-bg" />
-      <div className="hero-glow" />
 
       <div className="relative z-[2] w-full max-w-[1240px] mx-auto px-5 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-10 items-center lg:grid-cols-[1.1fr_1fr] lg:gap-[60px]">
