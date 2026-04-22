@@ -437,7 +437,6 @@
     position: relative;
     flex: 0 0 120px;
     overflow: hidden;
-    transition: flex-basis 0.6s cubic-bezier(0.22, 1, 0.36, 1);
   }
   .leader-photo img {
     width: 100%;
@@ -472,9 +471,7 @@
     flex-direction: column;
     justify-content: center;
     min-width: 0;
-    transition:
-      padding 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-      gap 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    text-align: center;
   }
 
   .leader-role {
@@ -484,7 +481,6 @@
     letter-spacing: 0.1em;
     color: var(--lc1);
     margin-bottom: 8px;
-    transition: letter-spacing 0.5s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .leader-name {
@@ -493,7 +489,6 @@
     letter-spacing: -0.02em;
     line-height: 1.15;
     color: #F0F0FF;
-    transition: font-size 0.5s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .leader-bio {
@@ -504,6 +499,9 @@
     max-height: 0;
     opacity: 0;
     overflow: hidden;
+    text-align: justify;
+    text-align-last: center;
+    hyphens: auto;
     transition:
       max-height 0.6s cubic-bezier(0.22, 1, 0.36, 1),
       margin-top 0.5s cubic-bezier(0.22, 1, 0.36, 1),
