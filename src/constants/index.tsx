@@ -8,12 +8,10 @@ import {
 } from '../components/ui/Icons';
 
 
-export const NAV_LINKS = [
-  { label: 'Servicios',  href: '#services' },
-  { label: 'Proceso',    href: '#process' },
-  { label: 'Equipo',    href: '#team' },
-  { label: 'FAQ',       href: '#faq' },
-  { label: 'Contacto',     href: '#contact' }
+export const NAV_HREFS: { key: keyof typeof content.es.nav; href: string }[] = [
+  { key: 'services', href: '#services' },
+  { key: 'leadership', href: '#leadership' },
+  { key: 'faq', href: '#faq' },
 ];
 
 export const SERVICES = [

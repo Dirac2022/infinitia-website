@@ -13,6 +13,7 @@ const ICON_LG: Record<IconKey, ReactNode> = {
 };
 
 const SLIDE_MS = 4000;
+const SWIPE_THRESHOLD = 60;
 
 export function Services() {
   const { lang } = useLang();
@@ -23,8 +24,41 @@ export function Services() {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
   const [tick, setTick] = useState(0);
+  const [dragDelta, setDragDelta] = useState(0);
   const timerRef = useRef<number | null>(null);
   const touchStartX = useRef<number | null>(null);
+  const touchStartY = useRef<number | null>(null);
+  const isDraggingRef = useRef(false);
+  const isHorizontalRef = useRef<boolean | null>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
+  const isTouchCarousel = useRef(
+    typeof window !== 'undefined' && window.matchMedia('(max-width: 820px)').matches
+  );
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 820px)');
+    const handler = (e: MediaQueryListEvent) => { isTouchCarousel.current = e.matches; };
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
+
+  useEffect(() => {
+    const stage = stageRef.current;
+    if (!stage) return;
+    const onMove = (e: TouchEvent) => {
+      if (!isTouchCarousel.current || !isDraggingRef.current || touchStartX.current === null || touchStartY.current === null) return;
+      const dx = e.touches[0].clientX - touchStartX.current;
+      const dy = e.touches[0].clientY - touchStartY.current;
+      if (isHorizontalRef.current === null) {
+        isHorizontalRef.current = Math.abs(dx) > Math.abs(dy);
+      }
+      if (!isHorizontalRef.current) return;
+      e.preventDefault();
+      setDragDelta(dx);
+    };
+    stage.addEventListener('touchmove', onMove, { passive: false });
+    return () => stage.removeEventListener('touchmove', onMove);
+  }, []);
 
   useEffect(() => {
     if (paused) return;
@@ -46,15 +80,23 @@ export function Services() {
   }, []);
 
   const onTouchStart = useCallback((e: React.TouchEvent) => {
+    if (!isTouchCarousel.current) return;
     touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+    isDraggingRef.current = true;
+    isHorizontalRef.current = null;
     setPaused(true);
   }, []);
 
   const onTouchEnd = useCallback((e: React.TouchEvent) => {
     if (touchStartX.current === null) return;
+    isDraggingRef.current = false;
     const dx = e.changedTouches[0].clientX - touchStartX.current;
-    if (Math.abs(dx) > 40) advance(dx < 0 ? 1 : -1);
     touchStartX.current = null;
+    touchStartY.current = null;
+    isHorizontalRef.current = null;
+    if (Math.abs(dx) > SWIPE_THRESHOLD) advance(dx < 0 ? 1 : -1);
+    setDragDelta(0);
     setPaused(false);
   }, [advance]);
 
@@ -68,6 +110,13 @@ export function Services() {
   const prevLabel = lang === 'es' ? 'Anterior' : 'Previous';
   const nextLabel = lang === 'es' ? 'Siguiente' : 'Next';
   const codeWord = lang === 'es' ? 'solucion/' : 'solution/';
+
+  const cardWidth = stageRef.current?.offsetWidth ?? 390;
+  const isDragging = dragDelta !== 0;
+  const peekIdx = isDragging
+    ? dragDelta < 0 ? (active + 1) % n : (active - 1 + n) % n
+    : -1;
+  const dragProgress = Math.min(Math.abs(dragDelta) / (cardWidth * 0.45), 1);
 
   return (
     <section id="services" className="section">
@@ -104,6 +153,7 @@ export function Services() {
           </button>
 
           <div
+            ref={stageRef}
             className="carousel-stage"
             onTouchStart={onTouchStart}
             onTouchEnd={onTouchEnd}
@@ -116,6 +166,21 @@ export function Services() {
               const isCenter = d === 0;
               const isSide = absD === 1;
 
+              let dragStyle: React.CSSProperties = {};
+              if (isDragging) {
+                if (isCenter) {
+                  dragStyle = { transform: `translateX(${dragDelta}px)`, transition: 'none' };
+                } else if (i === peekIdx) {
+                  const startX = dragDelta < 0 ? cardWidth : -cardWidth;
+                  dragStyle = {
+                    transform: `translateX(${startX + dragDelta}px)`,
+                    opacity: 0.15 + dragProgress * 0.5,
+                    filter: `blur(${Math.max(0, 4 - dragProgress * 3.5)}px)`,
+                    transition: 'none',
+                  };
+                }
+              }
+
               return (
                 <div
                   key={item.title}
@@ -123,6 +188,7 @@ export function Services() {
                   style={{
                     ['--d' as string]: d,
                     ['--service-color' as string]: item.color,
+                    ...dragStyle,
                   } as React.CSSProperties}
                   onClick={isSide ? () => jump(i) : undefined}
                   onKeyDown={isSide ? onSideKey(i) : undefined}
