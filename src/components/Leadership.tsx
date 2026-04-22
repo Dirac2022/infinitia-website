@@ -37,7 +37,9 @@ export function Leadership() {
               <div className="leader-content">
                 <div className="leader-role">{m.role}</div>
                 <h3 className="leader-name">{m.name}</h3>
-                <p className="leader-bio">{m.bio}</p>
+                <div className="leader-bio-wrapper">
+                  <p className="leader-bio">{m.bio}</p>
+                </div>
               </div>
             </article>
           ))}
