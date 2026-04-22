@@ -818,6 +818,7 @@
     max-width: 680px;
   }
   .faq-item.open .faq-a { max-height: 300px; }
+<<<<<<< HEAD
 }
 
 @layer components {
@@ -837,6 +838,8 @@
   }
   .contact-input::placeholder { color: #3A3A55; }
   .contact-input:focus { border-color: #6C63FF; }
+=======
+>>>>>>> 25c7480 (feat: integracion de carrusel dinamico, footer y FAQ)
 }
 
 @layer components {
