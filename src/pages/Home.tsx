@@ -22,7 +22,7 @@ export function Home() {
         <Case />
         <Leadership />
         <FAQ />
-      </main>
+      </main >
       <Footer />
       <ContactModal open={contactOpen} onClose={closeContact} />
     </>

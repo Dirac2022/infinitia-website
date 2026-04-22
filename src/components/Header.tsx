@@ -135,6 +135,7 @@ export function Header({ onOpenContact }: HeaderProps) {
           <Button
             variant="primary"
             className="hidden md:flex py-2.5 px-4 text-[13px]"
+            // className="py-2.5 px-4 text-[13px]"
             onClick={onOpenContact}
           >
             {t.nav.cta}

@@ -35,23 +35,26 @@ export function Hero({ onOpenContact }: HeroProps) {
               {t.sub}
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-3 flex-wrap mb-10 lg:mb-16">
-              <Button variant="primary" onClick={onOpenContact}>
-                {t.ctaPrimary}
-              </Button>
-              <Button
-                variant="ghost"
-                onClick={() => {
-                  document.querySelector('#services')?.scrollIntoView({ behavior: 'smooth' });
-                }}
-              >
-                {t.ctaSecondary}
-              </Button>
-            </div>
-          </div>
 
-          <div className="hidden lg:block">
-            <Terminal />
+            <div className="flex flex-col sm:flex-row gap-3 flex-wrap mb-10 lg:mb-16">
+              <div className="flex gap-3 flex-wrap mb-16">
+                <Button variant="primary" onClick={onOpenContact}>
+                  {t.ctaPrimary}
+                </Button>
+                <Button
+                  variant="ghost"
+                  onClick={() => {
+                    document.querySelector('#services')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                >
+                  {t.ctaSecondary}
+                </Button>
+              </div>
+            </div>
+
+            <div className="hidden lg:block">
+              <Terminal />
+            </div>
           </div>
         </div>
       </div>

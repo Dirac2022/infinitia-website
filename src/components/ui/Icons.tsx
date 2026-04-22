@@ -43,7 +43,10 @@ export const CloudIcon = icon(
 );
 
 export const CodeIcon = icon(
-  <path d="m8 6-6 6 6 6M16 6l6 6-6 6M14 4l-4 16" />,
+  <>
+    <path className="code-bracket-l" d="m8 6-6 6 6 6" />
+    <path className="code-bracket-r" d="M16 6l6 6-6 6" />
+  </>,
 );
 
 export const ServerIcon = icon(
