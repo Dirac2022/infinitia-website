@@ -35,6 +35,20 @@
 }
 
 @layer base {
+  html {
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(108, 99, 255, 0.25) transparent;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
   body {
     background-color: var(--color-canvas);
     color: var(--color-fg-primary);
@@ -42,6 +56,23 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
+  }
+
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(108, 99, 255, 0.25);
+    border-radius: 2px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(108, 99, 255, 0.5);
   }
 
   * {
@@ -111,6 +142,28 @@
   }
 }
 
+@keyframes mobile-card-in {
+  from {
+    transform: translateY(14px) scale(0.97);
+  }
+  to {
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
 @layer components {
 
   /* ── Hero ─────────────────────────────────────────────────── */
@@ -142,17 +195,6 @@
     background-size: 28px 28px;
     mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black, transparent 75%);
     -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black, transparent 75%);
-    pointer-events: none;
-  }
-
-  .hero-glow {
-    position: absolute;
-    top: -10%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 900px;
-    height: 600px;
-    background: radial-gradient(ellipse at center, rgba(108, 99, 255, 0.18), transparent 60%);
     pointer-events: none;
   }
 
@@ -350,7 +392,7 @@
     width: 100%;
     max-width: 1240px;
     margin: 0 auto;
-    padding: 0 16px;
+    padding: 0 20px;
   }
 
   @media (min-width: 640px) {
@@ -469,10 +511,24 @@
     }
   }
 
+  @media (max-width: 820px) {
+    .services-carousel {
+      gap: 0;
+      overflow-x: clip;
+    }
+
+    .carousel-stage {
+      touch-action: pan-y;
+    }
+
+    .carousel-nav {
+      display: none !important;
+    }
+  }
+
   @media (max-width: 600px) {
     .services-carousel {
       --slot-step: 0px;
-      gap: 8px;
     }
   }
 
@@ -491,7 +547,34 @@
 
   @media (max-width: 600px) {
     .carousel-stage {
-      height: 440px;
+      height: auto;
+      overflow-x: clip;
+      overflow-y: visible;
+    }
+
+    .services-carousel .carousel-item {
+      transition: opacity 0.55s cubic-bezier(0.4, 0, 0.2, 1), transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .services-carousel .carousel-item.is-center {
+      position: relative;
+      top: auto;
+      left: auto;
+      transform: none;
+      width: 100%;
+    }
+
+    .carousel-item.is-center .carousel-card {
+      animation: mobile-card-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .services-carousel .carousel-item.is-side,
+    .services-carousel .carousel-item.is-hidden {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      transform: none;
     }
   }
 
@@ -608,6 +691,7 @@
   @media (max-width: 600px) {
     .carousel-card {
       flex-direction: column;
+      align-items: stretch;
       gap: 18px;
       padding: 24px;
       text-align: center;
@@ -682,14 +766,32 @@
 
   @media (max-width: 600px) {
     .service-icon--lg {
-      width: 120px;
-      height: 120px;
-      border-radius: 20px;
+      width: 96px;
+      height: 96px;
+      border-radius: 16px;
     }
 
     .service-icon--lg svg {
-      width: 60px;
-      height: 60px;
+      width: 48px;
+      height: 48px;
+    }
+
+    .service-ix {
+      margin-bottom: 6px;
+    }
+
+    .service-title {
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
+
+    .service-desc {
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+
+    .service-tags {
+      justify-content: center;
     }
   }
 
@@ -1180,7 +1282,7 @@
     border: 1px solid #2A2A3A;
     border-radius: 16px;
     overflow: hidden;
-    min-height: 180px;
+    height: 260px;
     transition:
       border-color 0.5s cubic-bezier(0.22, 1, 0.36, 1),
       transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
@@ -1190,8 +1292,11 @@
 
   .leader-photo {
     position: relative;
-    flex: 0 0 120px;
+    flex: 0 0 160px;
     overflow: hidden;
+    -webkit-mask-image: linear-gradient(to right, black 30%, transparent 100%);
+    mask-image: linear-gradient(to right, black 30%, transparent 100%);
+    transition: flex-basis 0.6s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .leader-photo img {
@@ -1227,6 +1332,10 @@
     justify-content: center;
     min-width: 0;
     text-align: center;
+    position: relative;
+    z-index: 2;
+    margin-left: -30px;
+    transition: padding 0.6s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .leader-role {
@@ -1236,6 +1345,7 @@
     letter-spacing: 0.1em;
     color: var(--lc1);
     margin-bottom: 8px;
+    transition: letter-spacing 0.6s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .leader-name {
@@ -1244,24 +1354,27 @@
     letter-spacing: -0.02em;
     line-height: 1.15;
     color: #F0F0FF;
+    transition: font-size 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .leader-bio-wrapper {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.6s cubic-bezier(0.22, 1, 0.36, 1), margin-top 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    margin-top: 0;
   }
 
   .leader-bio {
     color: #A0A0C0;
     font-size: 13.5px;
     line-height: 1.65;
-    margin-top: 0;
-    max-height: 0;
     opacity: 0;
     overflow: hidden;
     text-align: justify;
     text-align-last: center;
     hyphens: auto;
-    transition:
-      max-height 0.6s cubic-bezier(0.22, 1, 0.36, 1),
-      margin-top 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-      opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-      color 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1), color 0.5s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    transform: translateY(10px);
   }
 
   /* Spotlight: dim + shrink the sibling when one card is hovered */
@@ -1296,7 +1409,7 @@
 
   /* Content restructures — padding grows, bio reveals */
   .leader-card:hover .leader-content {
-    padding: 36px 36px 36px 34px;
+    padding: 36px 36px 36px 44px;
   }
 
   .leader-card:hover .leader-role {
@@ -1307,11 +1420,15 @@
     font-size: 24px;
   }
 
-  .leader-card:hover .leader-bio {
-    max-height: 260px;
+  .leader-card:hover .leader-bio-wrapper {
+    grid-template-rows: 1fr;
     margin-top: 14px;
+  }
+
+  .leader-card:hover .leader-bio {
     opacity: 1;
     color: #F0F0FF;
+    transform: translateY(0);
   }
 
   @media (max-width: 820px) {
@@ -1320,7 +1437,7 @@
     }
 
     .leader-card {
-      min-height: 160px;
+      height: 260px;
     }
 
     .leader-photo {

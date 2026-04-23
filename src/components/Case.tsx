@@ -136,7 +136,7 @@ const Case: React.FC = () => {
 
         <div className="case-grid">
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <div>
+            <div key={activeCase.id} style={{ animation: 'fade-in-up 1.2s cubic-bezier(0.22, 1, 0.36, 1) both' }}>
               <span className="case-label">
                 <span className="dot"></span>
                 {activeCase.label}
@@ -203,7 +203,7 @@ const Case: React.FC = () => {
             </div>
           </div>
 
-          <div className="case-visual">
+          <div className="case-visual" key={`${activeCase.id}-visual`} style={{ animation: 'fade-in-up 1.2s cubic-bezier(0.22, 1, 0.36, 1) both 0.2s' }}>
             <div className="case-visual-corner"><span className="d"></span> {activeCase.partner}</div>
             <div className="case-visual-inner">
               <div className="big">
