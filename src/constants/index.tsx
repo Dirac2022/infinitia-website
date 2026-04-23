@@ -7,6 +7,7 @@ import {
   CompassIcon,
 } from '../components/ui/Icons';
 
+import { content } from '../i18n/content';
 
 export const NAV_HREFS: { key: keyof typeof content.es.nav; href: string }[] = [
   { key: 'services', href: '#services' },
