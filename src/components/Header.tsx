@@ -54,7 +54,7 @@ export function Header({ onOpenContact }: HeaderProps) {
         scrolled ? 'bg-canvas/90 backdrop-blur-md border-b border-border-subtle' : '',
       ].join(' ')}
     >
-      <div className="w-full max-w-[1240px] mx-auto px-5 sm:px-6 lg:px-8 py-4 flex items-center justify-between gap-4">
+      <div className="container py-4 flex items-center justify-between gap-4">
         <a
           href="#top"
           className="flex items-center gap-2.5 font-semibold text-fg-primary tracking-[-0.02em] shrink-0"

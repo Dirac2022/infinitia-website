@@ -37,6 +37,7 @@
 @layer base {
   html {
     overflow-x: hidden;
+    overflow-anchor: none;
     scroll-behavior: smooth;
     scroll-padding-top: 80px;
     scrollbar-width: thin;
@@ -390,7 +391,7 @@
   /* ── Layout ────────────────────────────────────────────────── */
   .container {
     width: 100%;
-    max-width: 1240px;
+    max-width: 1440px;
     margin: 0 auto;
     padding: 0 20px;
   }
@@ -547,7 +548,7 @@
 
   @media (max-width: 600px) {
     .carousel-stage {
-      height: auto;
+      height: 360px;
       overflow-x: clip;
       overflow-y: visible;
     }
@@ -557,9 +558,9 @@
     }
 
     .services-carousel .carousel-item.is-center {
-      position: relative;
-      top: auto;
-      left: auto;
+      position: absolute;
+      top: 0;
+      left: 0;
       transform: none;
       width: 100%;
     }
@@ -1459,15 +1460,13 @@
 
   /* ── Case / Casos ────────────────────────────────────────────── */
   .case {
-    padding: 120px 32px;
+    padding: 120px 0;
     background: linear-gradient(180deg, var(--color-canvas) 0%, var(--color-panel) 100%);
     position: relative;
     overflow: hidden;
   }
 
   .case-content {
-    max-width: 1400px;
-    margin: 0 auto;
     position: relative;
     z-index: 2;
   }
@@ -1536,6 +1535,7 @@
     display: flex;
     gap: 8px;
     flex-wrap: wrap;
+    min-height: 56px;
   }
 
   .case-tags span {
@@ -1648,14 +1648,26 @@
   /* ── Footer ────────────────────────────────────────────── */
   footer {
     border-top: 1px solid var(--color-border-subtle);
-    padding: 60px 32px 28px;
+    padding: 60px 20px 28px;
     background: var(--color-panel);
     position: relative;
     z-index: 3;
   }
 
+  @media (min-width: 640px) {
+    footer {
+      padding: 60px 24px 28px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    footer {
+      padding: 60px 32px 28px;
+    }
+  }
+
   .footer-inner {
-    max-width: 1400px;
+    max-width: 1440px;
     margin: 0 auto;
     display: grid;
     grid-template-columns: 2fr 1fr 1fr 1fr;
@@ -1702,7 +1714,7 @@
   }
 
   .footer-bottom {
-    max-width: 1400px;
+    max-width: 1440px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
