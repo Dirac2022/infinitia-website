@@ -57,6 +57,7 @@ export function Header({ onOpenContact }: HeaderProps) {
       <div className="container py-4 flex items-center justify-between gap-4">
         <a
           href="#top"
+          onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
           className="flex items-center gap-2.5 font-semibold text-fg-primary tracking-[-0.02em] shrink-0"
         >
           <Logo />
@@ -68,6 +69,10 @@ export function Header({ onOpenContact }: HeaderProps) {
             <a
               key={href}
               href={href}
+              onClick={(e) => {
+                e.preventDefault();
+                document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+              }}
               className="text-sm text-fg-secondary hover:text-fg-primary transition-colors duration-200"
             >
               {t.nav[key]}

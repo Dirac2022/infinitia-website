@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useLang } from '../context/LangContext';
 
 const getCasesData = (lang: string) => {
@@ -102,17 +102,24 @@ const sectionTexts = {
 const Case: React.FC = () => {
   const { lang } = useLang();
   const [activeIndex, setActiveIndex] = useState(0);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const t = sectionTexts[lang as keyof typeof sectionTexts] || sectionTexts.es;
   const casesData = getCasesData(lang);
 
-  // Auto-play feature
-  useEffect(() => {
-    const timer = setInterval(() => {
+  // Reset timer helper
+  const resetTimer = () => {
+    if (timerRef.current) clearInterval(timerRef.current);
+    timerRef.current = setInterval(() => {
       setActiveIndex((current) => (current + 1) % casesData.length);
     }, 6000);
-    return () => clearInterval(timer);
-  }, [lang]); // add lang as dependency in case casesData.length changes or just to be safe
+  };
+
+  // Auto-play feature
+  useEffect(() => {
+    resetTimer();
+    return () => { if (timerRef.current) clearInterval(timerRef.current); };
+  }, [lang, casesData.length]);
 
   // Reset index if out of bounds on language change
   useEffect(() => {
@@ -121,8 +128,8 @@ const Case: React.FC = () => {
     }
   }, [lang, activeIndex, casesData.length]);
 
-  const handleNext = () => setActiveIndex((current) => (current + 1) % casesData.length);
-  const handlePrev = () => setActiveIndex((current) => (current - 1 + casesData.length) % casesData.length);
+  const handleNext = () => { setActiveIndex((current) => (current + 1) % casesData.length); resetTimer(); };
+  const handlePrev = () => { setActiveIndex((current) => (current - 1 + casesData.length) % casesData.length); resetTimer(); };
 
   const activeCase = casesData[activeIndex] || casesData[0];
 
@@ -136,18 +143,35 @@ const Case: React.FC = () => {
 
         <div className="case-grid">
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <div key={activeCase.id} style={{ animation: 'fade-in-up 1.2s cubic-bezier(0.22, 1, 0.36, 1) both' }}>
-              <span className="case-label">
-                <span className="dot"></span>
-                {activeCase.label}
-              </span>
-              <h3 className="case-title">{activeCase.fullName}</h3>
-              <p className="case-desc" style={{ height: '220px' }} dangerouslySetInnerHTML={{ __html: activeCase.desc }}></p>
-              <div className="case-tags">
-                {activeCase.tags.map((tag, idx) => (
-                  <span key={idx}>{tag}</span>
-                ))}
-              </div>
+            {/* Stack all cases on top of each other, only show active via opacity */}
+            <div style={{ position: 'relative', minHeight: '420px' }}>
+              {casesData.map((caseItem, idx) => (
+                <div
+                  key={caseItem.id}
+                  style={{
+                    position: idx === 0 ? 'relative' : 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    opacity: activeIndex === idx ? 1 : 0,
+                    transition: 'opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1)',
+                    pointerEvents: activeIndex === idx ? 'auto' : 'none',
+                    willChange: 'opacity',
+                  }}
+                >
+                  <span className="case-label">
+                    <span className="dot"></span>
+                    {caseItem.label}
+                  </span>
+                  <h3 className="case-title">{caseItem.fullName}</h3>
+                  <p className="case-desc" style={{ minHeight: '180px' }} dangerouslySetInnerHTML={{ __html: caseItem.desc }}></p>
+                  <div className="case-tags">
+                    {caseItem.tags.map((tag, tagIdx) => (
+                      <span key={tagIdx}>{tag}</span>
+                    ))}
+                  </div>
+                </div>
+              ))}
             </div>
             
             {/* Carousel navigation indicators and buttons */}
@@ -171,7 +195,7 @@ const Case: React.FC = () => {
                 {casesData.map((_, idx) => (
                   <button
                     key={idx}
-                    onClick={() => setActiveIndex(idx)}
+                    onClick={() => { setActiveIndex(idx); resetTimer(); }}
                     style={{
                       width: '32px',
                       height: '4px',
@@ -203,14 +227,33 @@ const Case: React.FC = () => {
             </div>
           </div>
 
-          <div className="case-visual" key={`${activeCase.id}-visual`} style={{ animation: 'fade-in-up 1.2s cubic-bezier(0.22, 1, 0.36, 1) both 0.2s' }}>
-            <div className="case-visual-corner"><span className="d"></span> {activeCase.partner}</div>
-            <div className="case-visual-inner">
-              <div className="big">
-                {activeCase.title}<em>{activeCase.titleEm}</em>
+          {/* Visual panel — also stack for crossfade, no re-mount */}
+          <div style={{ position: 'relative' }}>
+            {casesData.map((caseItem, idx) => (
+              <div
+                key={`${caseItem.id}-visual`}
+                className="case-visual"
+                style={{
+                  position: idx === 0 ? 'relative' : 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: idx === 0 ? undefined : 0,
+                  opacity: activeIndex === idx ? 1 : 0,
+                  transition: 'opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1)',
+                  pointerEvents: activeIndex === idx ? 'auto' : 'none',
+                  willChange: 'opacity',
+                }}
+              >
+                <div className="case-visual-corner"><span className="d"></span> {caseItem.partner}</div>
+                <div className="case-visual-inner">
+                  <div className="big">
+                    {caseItem.title}<em>{caseItem.titleEm}</em>
+                  </div>
+                  <div className="sub">{t.cliente} · {caseItem.period}</div>
+                </div>
               </div>
-              <div className="sub">{t.cliente} · {activeCase.period}</div>
-            </div>
+            ))}
           </div>
         </div>
       </div>

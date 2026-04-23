@@ -37,17 +37,9 @@
 @layer base {
   html {
     overflow-x: hidden;
-    overflow-anchor: none;
-    scroll-behavior: smooth;
     scroll-padding-top: 80px;
     scrollbar-width: thin;
     scrollbar-color: rgba(108, 99, 255, 0.25) transparent;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
   }
 
   body {
@@ -155,12 +147,10 @@
 @keyframes fade-in-up {
   from {
     opacity: 0;
-    transform: translateY(20px);
-    filter: blur(4px);
+    filter: blur(3px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
     filter: blur(0);
   }
 }
@@ -538,6 +528,7 @@
     flex: 1 1 auto;
     height: 320px;
     overflow: hidden;
+    contain: layout style;
   }
 
   @media (max-width: 820px) {
@@ -817,6 +808,7 @@
     color: #A0A0C0;
     line-height: 1.6;
     margin-bottom: 20px;
+    min-height: calc(3 * 14px * 1.6); /* Reserve space for 3 lines to prevent layout shift */
   }
 
   .service-tags {
@@ -1536,6 +1528,7 @@
     gap: 8px;
     flex-wrap: wrap;
     min-height: 56px;
+    align-items: flex-start;
   }
 
   .case-tags span {
@@ -1556,7 +1549,7 @@
     border-radius: 16px;
     position: relative;
     overflow: hidden;
-    min-height: 380px;
+    min-height: 520px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1648,27 +1641,13 @@
   /* ── Footer ────────────────────────────────────────────── */
   footer {
     border-top: 1px solid var(--color-border-subtle);
-    padding: 60px 20px 28px;
+    padding: 60px 0 28px;
     background: var(--color-panel);
     position: relative;
     z-index: 3;
   }
 
-  @media (min-width: 640px) {
-    footer {
-      padding: 60px 24px 28px;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    footer {
-      padding: 60px 32px 28px;
-    }
-  }
-
   .footer-inner {
-    max-width: 1440px;
-    margin: 0 auto;
     display: grid;
     grid-template-columns: 2fr 1fr 1fr 1fr;
     gap: 50px;
@@ -1714,8 +1693,6 @@
   }
 
   .footer-bottom {
-    max-width: 1440px;
-    margin: 0 auto;
     display: flex;
     justify-content: space-between;
     padding-top: 24px;
