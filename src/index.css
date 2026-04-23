@@ -513,7 +513,18 @@
     }
 
     .carousel-nav {
-      display: none !important;
+      position: absolute;
+      top: 50%;
+      margin-top: -23px; /* 46px height / 2 */
+      z-index: 10;
+    }
+    
+    .carousel-nav--prev {
+      left: 0;
+    }
+    
+    .carousel-nav--next {
+      right: 0;
     }
   }
 
@@ -1275,7 +1286,8 @@
     border: 1px solid #2A2A3A;
     border-radius: 16px;
     overflow: hidden;
-    height: 260px;
+    min-height: 260px;
+    height: 100%;
     transition:
       border-color 0.5s cubic-bezier(0.22, 1, 0.36, 1),
       transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
@@ -1370,55 +1382,66 @@
     transform: translateY(10px);
   }
 
+  /* Wrapper for stable hover hit area */
+  .leader-card-wrap {
+    display: block;
+    position: relative;
+    border-radius: 16px;
+    height: 100%;
+  }
+
+  .leader-card-wrap:hover {
+    z-index: 2;
+  }
+
   /* Spotlight: dim + shrink the sibling when one card is hovered */
-  .leaders-grid:has(.leader-card:hover) .leader-card:not(:hover) {
+  .leaders-grid:has(.leader-card-wrap:hover) .leader-card-wrap:not(:hover) .leader-card {
     opacity: 0.45;
     transform: scale(0.98);
   }
 
   /* Hover — card grows, gains tinted shadow/border */
-  .leader-card:hover {
+  .leader-card-wrap:hover .leader-card {
     transform: translateY(-6px);
     border-color: color-mix(in srgb, var(--lc1) 55%, #3A3A5A);
     box-shadow:
       0 30px 60px -22px color-mix(in srgb, var(--lc1) 45%, transparent),
       0 0 0 1px color-mix(in srgb, var(--lc1) 30%, transparent);
-    z-index: 2;
   }
 
   /* Photo widens to dominate (already full-height via flex) */
-  .leader-card:hover .leader-photo {
+  .leader-card-wrap:hover .leader-photo {
     flex-basis: 42%;
   }
 
-  .leader-card:hover .leader-photo img {
+  .leader-card-wrap:hover .leader-photo img {
     filter: grayscale(0%) brightness(1) contrast(1);
     transform: scale(1.04);
   }
 
-  .leader-card:hover .leader-photo-overlay {
+  .leader-card-wrap:hover .leader-photo-overlay {
     opacity: 0.25;
   }
 
   /* Content restructures — padding grows, bio reveals */
-  .leader-card:hover .leader-content {
+  .leader-card-wrap:hover .leader-content {
     padding: 36px 36px 36px 44px;
   }
 
-  .leader-card:hover .leader-role {
+  .leader-card-wrap:hover .leader-role {
     letter-spacing: 0.14em;
   }
 
-  .leader-card:hover .leader-name {
+  .leader-card-wrap:hover .leader-name {
     font-size: 24px;
   }
 
-  .leader-card:hover .leader-bio-wrapper {
+  .leader-card-wrap:hover .leader-bio-wrapper {
     grid-template-rows: 1fr;
     margin-top: 14px;
   }
 
-  .leader-card:hover .leader-bio {
+  .leader-card-wrap:hover .leader-bio {
     opacity: 1;
     color: #F0F0FF;
     transform: translateY(0);
@@ -1430,14 +1453,14 @@
     }
 
     .leader-card {
-      height: 260px;
+      min-height: 260px;
     }
 
     .leader-photo {
       flex-basis: 100px;
     }
 
-    .leader-card:hover .leader-photo {
+    .leader-card-wrap:hover .leader-photo {
       flex-basis: 38%;
     }
 
@@ -1445,7 +1468,7 @@
       padding: 24px 22px;
     }
 
-    .leader-card:hover .leader-content {
+    .leader-card-wrap:hover .leader-content {
       padding: 28px 24px;
     }
   }
