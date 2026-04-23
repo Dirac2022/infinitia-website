@@ -131,8 +131,6 @@ const Case: React.FC = () => {
   const handleNext = () => { setActiveIndex((current) => (current + 1) % casesData.length); resetTimer(); };
   const handlePrev = () => { setActiveIndex((current) => (current - 1 + casesData.length) % casesData.length); resetTimer(); };
 
-  const activeCase = casesData[activeIndex] || casesData[0];
-
   return (
     <section className="case" id="casos">
       <div className="container case-content reveal">
