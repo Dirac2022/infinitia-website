@@ -513,18 +513,11 @@
     }
 
     .carousel-nav {
-      position: absolute;
-      top: 50%;
-      margin-top: -23px; /* 46px height / 2 */
-      z-index: 10;
+      display: none;
     }
-    
-    .carousel-nav--prev {
-      left: 0;
-    }
-    
-    .carousel-nav--next {
-      right: 0;
+
+    .case-carousel-nav {
+      display: none !important;
     }
   }
 
@@ -1870,5 +1863,12 @@
 
   .contact-input:focus {
     border-color: #6C63FF;
+  }
+}
+
+@media (max-width: 820px) {
+  .carousel-nav,
+  .case-carousel-nav {
+    display: none !important;
   }
 }
