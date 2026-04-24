@@ -176,7 +176,8 @@ const Case: React.FC = () => {
             
             {/* Carousel navigation indicators and buttons */}
             <div style={{ marginTop: 'auto', paddingTop: '40px', display: 'flex', alignItems: 'center', gap: '16px' }}>
-              <button 
+              <button
+                className="case-carousel-nav"
                 onClick={handlePrev}
                 style={{
                   width: '32px', height: '32px', borderRadius: '50%',
@@ -210,7 +211,8 @@ const Case: React.FC = () => {
                 ))}
               </div>
 
-              <button 
+              <button
+                className="case-carousel-nav"
                 onClick={handleNext}
                 style={{
                   width: '32px', height: '32px', borderRadius: '50%',
