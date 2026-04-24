@@ -37,10 +37,13 @@ export const WebIcon = icon(
 
 export const CloudIcon = icon(
   <>
-    <path d="M17 18a4 4 0 0 0 0-8 6 6 0 0 0-11.5 2A3.5 3.5 0 0 0 6 19h11Z" />
+    {/* Nube */}
+    <path d="M17 19H7a4 4 0 0 1 0-8 6 6 0 0 1 10 0 4 4 0 0 1 0 8Z" />
+    {/* Flecha alineada al centro */}
     <path d="M12 13v5M10 15l2 2 2-2" />
   </>,
 );
+
 
 export const CodeIcon = icon(
   <>

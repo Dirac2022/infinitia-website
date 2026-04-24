@@ -135,8 +135,10 @@ const Case: React.FC = () => {
     <section className="case" id="casos">
       <div className="container case-content reveal">
         <div className="section-head" style={{ marginBottom: '50px' }}>
-          <div className="section-num">{t.casos}</div>
-          <div><h2 className="section-title">{t.trabajamosCon}<em>{t.grandes}</em></h2></div>
+          <div>
+            <div className="section-eyebrow">{t.casos}</div>
+            <h2 className="section-title">{t.trabajamosCon}<em>{t.grandes}</em></h2>
+          </div>
         </div>
 
         <div className="case-grid">
