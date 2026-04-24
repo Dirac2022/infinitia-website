@@ -107,7 +107,7 @@ const Case: React.FC = () => {
   const t = sectionTexts[lang as keyof typeof sectionTexts] || sectionTexts.es;
   const casesData = getCasesData(lang);
 
-  // Reset timer helper
+  // Reset timer helper to avoid code duplication
   const resetTimer = () => {
     if (timerRef.current) clearInterval(timerRef.current);
     timerRef.current = setInterval(() => {
