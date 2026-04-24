@@ -25,23 +25,21 @@ export function Leadership() {
 
         <div className="leaders-grid">
           {t.members.map((m, i) => (
-            <article
-              key={m.name}
-              className="leader-card"
-              style={{ '--lc1': m.c1, '--lc2': m.c2 } as CSSProperties}
-            >
-              <div className="leader-photo">
-                <img src={PHOTOS[i]} alt={m.name} />
-                <div className="leader-photo-overlay" />
-              </div>
-              <div className="leader-content">
-                <div className="leader-role">{m.role}</div>
-                <h3 className="leader-name">{m.name}</h3>
-                <div className="leader-bio-wrapper">
-                  <p className="leader-bio">{m.bio}</p>
+            <div className="leader-card-wrap" key={m.name} style={{ '--lc1': m.c1, '--lc2': m.c2 } as CSSProperties}>
+              <article className="leader-card">
+                <div className="leader-photo">
+                  <img src={PHOTOS[i]} alt={m.name} />
+                  <div className="leader-photo-overlay" />
                 </div>
-              </div>
-            </article>
+                <div className="leader-content">
+                  <div className="leader-role">{m.role}</div>
+                  <h3 className="leader-name">{m.name}</h3>
+                  <div className="leader-bio-wrapper">
+                    <p className="leader-bio">{m.bio}</p>
+                  </div>
+                </div>
+              </article>
+            </div>
           ))}
         </div>
       </div>

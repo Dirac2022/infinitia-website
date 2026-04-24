@@ -37,7 +37,7 @@ export const Footer: React.FC = () => {
 
   return (
     <footer>
-      <div className="footer-inner">
+      <div className="container footer-inner">
         <div className="footer-brand">
           <a href="#" className="logo" style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '1.05rem', fontWeight: 700 }}>
             <span className="logo-mark" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '26px', height: '26px' }}>
@@ -64,16 +64,8 @@ export const Footer: React.FC = () => {
             <li><a href="#faq">{t.e_faq}</a></li>
           </ul>
         </div>
-        <div className="footer-col">
-          <h4>{t.contacto}</h4>
-          <ul>
-            <li><a href="mailto:gino.janampa@infinitia.io">gino.janampa@infinitia.io</a></li>
-            <li><a href="#">{t.loc}</a></li>
-            <li><a href="#">LinkedIn ↗</a></li>
-          </ul>
-        </div>
       </div>
-      <div className="footer-bottom">
+      <div className="container footer-bottom">
         <span>{t.copyright}</span>
         <span>{t.legal}</span>
       </div>
