@@ -18,21 +18,21 @@ export const NAV_HREFS: { key: keyof typeof content.es.nav; href: string }[] = [
 export const SERVICES = [
   {
     title: 'Apps móviles',
-    desc: 'iOS y Android nativo o React Native. Desde la arquitectura inicial hasta publicación en las stores con calidad enterprise.',
+    desc: 'Desarrollo en iOS y Android. Desde la arquitectura inicial hasta el despliegue en las tiendas oficiales, bajo los más altos estándares empresariales.',
     tags: ['Swift', 'Kotlin', 'React Native', 'Expo'],
     color: '#6C63FF',
     icon: <MobileIcon width={20} height={20} />,
   },
   {
     title: 'Aplicaciones web',
-    desc: 'Interfaces rápidas y accesibles con React, Next.js y Vue. SSR, edge y tiempo real cuando hace falta.',
+    desc: 'Interfaces de alto desempeño enfocadas en la experiencia de usuario. Modernas arquitecturas que garantizan velocidad y disponibilidad global.',
     tags: ['Next.js', 'React', 'TypeScript', 'Vue'],
     color: '#00D4FF',
     icon: <WebIcon width={20} height={20} />,
   },
   {
     title: 'Migración a SaaS',
-    desc: 'Llevamos productos on-premise a multi-tenant en la nube, con billing, auth y observabilidad incluidos. Sin caídas.',
+    desc: 'Tus productos locales hacia un modelo multi-tenant en la nube. Facturación, autenticación y observabilidad integrados. Sin interrupciones.',
     tags: ['AWS', 'Multi-tenant', 'Stripe', 'Auth0'],
     color: '#00E5A0',
     icon: <CloudIcon width={20} height={20} />,
